@@ -1,0 +1,25 @@
+﻿DNSSEC implementation
+
+	
+The verification of DNSSEC can be broken down into two processes:
+
+	1. Chain of trust verification (Verification of child’s public KSK with parent’s DS)
+
+		To check if the public KSK has been compromised, the DS record of parent is compared with the hash value of the public KSK of the child zone. I have implemented this in the code where for the current server( which will act as parent server), the public ZSK (can be identified if the flag’s value is 257) is compared with the DS of this server and this is done recursively. So for each parent and child server pair, the DS value of the parent(can be identified by checking if the flag is 43) will be compared with the hashed value of child’s public KSK. I observed the hash is done using SHA256 algorithm so I have hardcoded it in class variable. 
+
+	
+	2.  Verification in the zone - 
+
+		For each server in the process, this is done recursively. The RRset, RRsig of RRset is fetched from the current DNS server and validated using ‘dns.dnssec.validate()’ function. This is done at each level and if an exception occurs at any level, the validation is considered to have failed. This validation is being done when we have non empty answer section to validate the whole process as final step. 
+
+
+
+Meaning of outputs: 
+DNSSEC verification failed - This signifies that a particular level is not able to give RRsig of RRset and hence does not support DNSSEC.
+
+DNSEC not supported - The chain of trust and/or DNSSEC verification is failed. If at any poiny, the parent’s DS record cannot be matched with the public KSK of child, exception occurs which means the level doesn’t not support DNSSEC.
+
+
+
+
+

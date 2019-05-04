@@ -1,0 +1,97 @@
+-----------------------------------------------
+-----------------------------------------------
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ 
+
+./mydig www.cnn.com A
+
+QUESTION SECTION:
+www.cnn.com IN A
+
+ANSWER SECTION:
+www.cnn.com  IN 151.101.17.67
+
+Query Time: 0.8384978771209717 sec
+WHEN: Wed Sep 26 05:36:06 2018
+MSG SIZE rcvd: 96
+-----------------------------------------------
+-----------------------------------------------
+
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ 
+
+./mydig cnn.com MX
+QUESTION SECTION:
+cnn.com IN MX
+
+ANSWER SECTION:
+cnn.com IN MX mxa-000c6b02.gslb.pphosted.com.
+cnn.com IN MX mxb-000c6b02.gslb.pphosted.com.
+
+Query Time: 0.5332417488098145 sec
+WHEN: Wed Sep 26 05:36:12 2018
+MSG SIZE rcvd: 96
+-----------------------------------------------
+-----------------------------------------------
+
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ ./mydig cnn.com NS
+QUESTION SECTION:
+cnn.com IN NS
+
+ANSWER SECTION:
+cnn.com IN NS ns-1086.awsdns-07.org.
+cnn.com IN NS ns-1630.awsdns-11.co.uk.
+cnn.com IN NS ns-47.awsdns-05.com.
+cnn.com IN NS ns-576.awsdns-08.net.
+
+Query Time: 0.5237178802490234 sec
+WHEN: Wed Sep 26 05:36:20 2018
+MSG SIZE rcvd: 96
+-----------------------------------------------
+-----------------------------------------------
+
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ ./mydig google.co.jp A
+QUESTION SECTION:
+google.co.jp. IN A
+
+ANSWER SECTION:
+google.co.jp. IN A 216.58.206.35
+
+Query Time: 0.773280143737793 sec
+WHEN: Wed Sep 26 05:36:35 2018
+MSG SIZE rcvd: 96
+-----------------------------------------------
+-----------------------------------------------
+
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ ./mydig google.co.jp NS
+QUESTION SECTION:
+google.co.jp. IN NS
+
+ANSWER SECTION:
+google.co.jp. IN NS ns1.google.com.
+google.co.jp. IN NS ns4.google.com.
+google.co.jp. IN NS ns3.google.com.
+google.co.jp. IN NS ns2.google.com.
+
+Query Time: 0.8083541393280029 sec
+WHEN: Wed Sep 26 05:36:41 2018
+MSG SIZE rcvd: 96
+-----------------------------------------------
+-----------------------------------------------
+
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ ./mydig google.co.jp MX
+QUESTION SECTION:
+google.co.jp. IN MX
+
+ANSWER SECTION:
+google.co.jp. IN MX alt2.aspmx.l.google.com.
+google.co.jp. IN MX alt1.aspmx.l.google.com.
+google.co.jp. IN MX alt4.aspmx.l.google.com.
+google.co.jp. IN MX aspmx.l.google.com.
+google.co.jp. IN MX alt3.aspmx.l.google.com.
+
+Query Time: 0.7626008987426758 sec
+WHEN: Wed Sep 26 05:36:45 2018
+MSG SIZE rcvd: 96
+-----------------------------------------------
+-----------------------------------------------
+
+Divyanshs-MacBook-Pro:mydig divyansh_upreti$ 

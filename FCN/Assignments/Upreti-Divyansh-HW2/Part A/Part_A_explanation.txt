@@ -1,0 +1,129 @@
+High level estimation of code and an-swers to each part have been given below:
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To calculate total number of flows, I looked at successful handshakes between sender and receiver. It turned out 3 flows were made between different ports at sender and same port at receiver. struct in Python is used to unpack the binary data and collect it as a result. Various notations are used to format it that have been collected from these resources:
+
+https://docs.python.org/3/library/struct.html
+https://www.geeksforgeeks.org/python-format-function/
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+('Number of flows:', 3)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1.A
+
+For each flow, I have show the first two transactions. As you can see, the ack number in transaction 2 is 1 greater than sequence number in transaction 1 which means that the packet has been successfully recieved at the destination.
+
+For Flow 1(Source Port: 43498, Destination Port: 80)
+	Transaction 1:
+		Sequence Number:705669102
+		Acknowledgement Number:0
+		Received Window Size:42340
+
+
+	Transaction 2:
+		Sequence Number:1921750143
+		Acknowledgement Number:705669103
+		Received Window Size:43440
+
+
+For Flow 2(Source Port: 43500, Destination Port: 80)
+	Transaction 1:
+		Sequence Number:3636173851
+		Acknowledgement Number:0
+		Received Window Size:42340
+
+
+	Transaction 2:
+		Sequence Number:2335809727
+		Acknowledgement Number:3636173852
+		Received Window Size:43440
+
+
+For Flow 3(Source Port: 43502, Destination Port: 80)
+	Transaction 1:
+		Sequence Number:2558634629
+		Acknowledgement Number:0
+		Received Window Size:42340
+
+
+	Transaction 2:
+		Sequence Number:3429921722
+		Acknowledgement Number:2558634630
+		Received Window Size:43440
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.B
+
+For each flow, the throughput is calculated as number of average bytes sent in 'successful' transactions. For this, I have used a dictionary to keep track of which packets were not lost and thus were successful. I have divided this with total flow time. (Last packet time - First packet time)
+
+Throughput for 1 TCP flow (Source Port: 43498, Destination Port: 80: 5249087.09497 bytes per second
+Throughput for 2 TCP flow (Source Port: 43500, Destination Port: 80: 1268305.38211 bytes per second
+Throughput for 3 TCP flow (Source Port: 43502, Destination Port: 80: 1481384.80837 bytes per second
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.C
+
+For this part, I calculated the lost packets using dictionary to keep track of which packets were not sent in a duplicate manner. Such packets were less and their statistics are shown below:
+
+Flow 1 (Source Port: 43498, Destination Port: 80):
+	Total packets lost = 8.0 packets
+	Total packets sent from 130.245.145.12 to 128.208.2.19 = 6977.0 packets
+	Loss rate = 0.00114662462376
+
+Flow 2 (Source Port: 43500, Destination Port: 80):
+	Total packets lost = 190.0 packets
+	Total packets sent from 130.245.145.12 to 128.208.2.19 = 14045.0 packets
+	Loss rate = 0.0135279458882
+
+Flow 3 (Source Port: 43502, Destination Port: 80):
+	Total packets lost = 2.0 packets
+	Total packets sent from 130.245.145.12 to 128.208.2.19 = 14774.0 packets
+	Loss rate = 0.000135372952484
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.D
+
+
+For this part, the average RTT is calculated as the total time taken for each packet to get an acknowledgement back divided by the total number of packets. For this also, I have used dictionary to keep track of each packet's sending and receiving acknowledgement time.
+The theoretical throughput is then compared with empirical one.
+
+Theoretical throughput formula is : square root of (3/2)* (1 Maximum segment size)/ square root(Loss)* average RTT
+
+MSS = 1460
+Loss rate is calculted for each flow
+Avg RTT as well and put in the formula to get value for each flow
+
+The results are different from the empirical ones as some discrepancies and communication problems can be expected in real world. If various results are taken over large interval of time, then we can expect to get close to this result.
+
+
+
+
+Average RTT for TCP flow 1 (Source Port: 43498 ,Destination Port: 80) : 0.0731438426165 seconds
+Empirical Throughput for this flow estimated in program: 5249087.09497 bytes per second
+Theoretical Throughput for this flow: 721954.921047 bytes per second
+
+Average RTT for TCP flow 2 (Source Port: 43500 ,Destination Port: 80) : 0.117221824116 seconds
+Empirical Throughput for this flow estimated in program: 1268305.38211 bytes per second
+Theoretical Throughput for this flow: 131151.747418 bytes per second
+
+Average RTT for TCP flow 3 (Source Port: 43502 ,Destination Port: 80) : 0.114243239966 seconds
+Empirical Throughput for this flow estimated in program: 1481384.80837 bytes per second
+Theoretical Throughput for this flow: 1345246.97308 bytes per second
+
+
+-----------------------------------------------------------------------------------------
+

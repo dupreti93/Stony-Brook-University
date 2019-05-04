@@ -1,0 +1,126 @@
+-----------------------------------------------------------------------------------------
+2.A
+
+Here I have calculated congestion window (First 30 for each flow). Congestion window is first set to 1MSS(1460) and ssthreshold to received window size/2. I then in congestion control phase, increment congestion window by MSS each time and when it goes above threshold, I increase by very less amount 1/cwnd (congestion avoidance phase). The same functionality has been shown in code.
+
+Congestion window size for flow 1 (Source port 43498, Destination port 80):
+Conegestion window size: 1460.00068493
+Conegestion window size: 2920.00068493
+Conegestion window size: 4380.00068493
+Conegestion window size: 5840.00068493
+Conegestion window size: 7300.00068493
+Conegestion window size: 8760.00068493
+Conegestion window size: 10220.0006849
+Conegestion window size: 11680.0006849
+Conegestion window size: 13140.0006849
+Conegestion window size: 14600.0006849
+Conegestion window size: 16060.0006849
+Conegestion window size: 17520.0006849
+Conegestion window size: 18980.0006849
+Conegestion window size: 20440.0006849
+Conegestion window size: 21900.0006849
+Conegestion window size: 21900.0007306
+Conegestion window size: 21900.0007763
+Conegestion window size: 21900.0008219
+Conegestion window size: 21900.0008676
+Conegestion window size: 21900.0009132
+Conegestion window size: 21900.0009589
+Conegestion window size: 21900.0010046
+Conegestion window size: 21900.0010502
+Conegestion window size: 21900.0010959
+Conegestion window size: 21900.0011416
+Conegestion window size: 21900.0011872
+Conegestion window size: 21900.0012329
+Conegestion window size: 21900.0012785
+Conegestion window size: 21900.0013242
+Conegestion window size: 21900.0013699
+
+Congestion window size for flow 2 (Source port 43500, Destination port 80):
+Conegestion window size: 1460.00068493
+Conegestion window size: 2920.00068493
+Conegestion window size: 4380.00068493
+Conegestion window size: 5840.00068493
+Conegestion window size: 7300.00068493
+Conegestion window size: 8760.00068493
+Conegestion window size: 10220.0006849
+Conegestion window size: 11680.0006849
+Conegestion window size: 13140.0006849
+Conegestion window size: 14600.0006849
+Conegestion window size: 16060.0006849
+Conegestion window size: 17520.0006849
+Conegestion window size: 18980.0006849
+Conegestion window size: 20440.0006849
+Conegestion window size: 21900.0006849
+Conegestion window size: 21900.0007306
+Conegestion window size: 21900.0007763
+Conegestion window size: 21900.0008219
+Conegestion window size: 21900.0008676
+Conegestion window size: 21900.0009132
+Conegestion window size: 21900.0009589
+Conegestion window size: 21900.0010046
+Conegestion window size: 21900.0010502
+Conegestion window size: 21900.0010959
+Conegestion window size: 21900.0011416
+Conegestion window size: 21900.0011872
+Conegestion window size: 21900.0012329
+Conegestion window size: 21900.0012785
+Conegestion window size: 21900.0013242
+Conegestion window size: 21900.0013699
+
+Congestion window size for flow 3 (Source port 43502, Destination port 80):
+Conegestion window size: 1460.00068493
+Conegestion window size: 2920.00068493
+Conegestion window size: 4380.00068493
+Conegestion window size: 5840.00068493
+Conegestion window size: 7300.00068493
+Conegestion window size: 8760.00068493
+Conegestion window size: 10220.0006849
+Conegestion window size: 11680.0006849
+Conegestion window size: 13140.0006849
+Conegestion window size: 14600.0006849
+Conegestion window size: 16060.0006849
+Conegestion window size: 17520.0006849
+Conegestion window size: 18980.0006849
+Conegestion window size: 20440.0006849
+Conegestion window size: 21900.0006849
+Conegestion window size: 21900.0007306
+Conegestion window size: 21900.0007763
+Conegestion window size: 21900.0008219
+Conegestion window size: 21900.0008676
+Conegestion window size: 21900.0009132
+Conegestion window size: 21900.0009589
+Conegestion window size: 21900.0010046
+Conegestion window size: 21900.0010502
+Conegestion window size: 21900.0010959
+Conegestion window size: 21900.0011416
+Conegestion window size: 21900.0011872
+Conegestion window size: 21900.0012329
+Conegestion window size: 21900.0012785
+Conegestion window size: 21900.0013242
+Conegestion window size: 21900.0013699
+
+
+
+-----------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2.B
+
+For this part, I am using a dictionary to keep track of all packets received. If an acknowledgement number repeats itself 2 times, then it is the case of triple acknowledgement and gets counted in loss due to triple acknowledgement. Otherwise it gets counted as timeout. The total loss by timeout is simple calculated by Total lost packets - Total packets lost by triple acknowledgement. This needs to be done at the sender as sender can know how many acknowledgements have been received by keeping a data structure as dictionary. For timeout loss, sender can keep a clock to measure if time has exceeded the threshold time.
+
+For flow 1(Source port 43498, Destination port 80):
+Packets lost due to Triple acknowledgement: 4
+Packets lost due to timeout: 0
+
+For flow 2(Source port 43500, Destination port 80):
+Packets lost due to Triple acknowledgement: 78
+Packets lost due to timeout: 21
+
+For flow 3(Source port 43502, Destination port 80):
+Packets lost due to Triple acknowledgement: 78
+Packets lost due to timeout: 22
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

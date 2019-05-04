@@ -1,0 +1,114 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+The TCP dump command that was used to collect dump in my Mac was: 
+
+		sudo tcpdump -i en0 -s 0 -B 544288 -w ~/Desktop/http_1080.pcap;
+
+The browser caches and histories were cleared every time before collecting results.
+
+
+3.A
+
+For this part, for HTTP packets, I keep track of the request and response pair by a queue. The file 'http_1080.pcap' contained SOCKS protocol instead of HTTP one. I parsed this file Once a request of HTTP comes, I put it in queue and wait for a response to come for HTTP. As the response will be serialized, the dequeued request will be paired with this response. Following are the results with TCP tuple<sourceIp, DestIp, Sequence number, acknowledgement number>. Total 17 objects were collected from the page at port 1080 using HTTP 1.0 which tells that HTTP 1.0 makes separate connections for each object.
+
+1
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  486358611  316636054
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  3891411022  1584965139
+2
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  1146819613  4049900019
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  4049900019  1146819998
+3
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  597638961  912095852
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  8700358  1678052103
+4
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  2578162716  665972129
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  3942880727  244420678
+5
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  408453324  164721127
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  164721127  408453701
+6
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  1678051726  8700358
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  912095852  597639338
+7
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  4186665272  3699863864
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  489235254  1599038841
+8
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  1784490718  2647050464
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  2668062137  3013394210
+9
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  3013393829  2668062137
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  2647050464  1784491105
+10
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  3751185010  1187512189
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  1187512189  3751185347
+11
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  1584964759  3891411022
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  795768704  4010551783
+12
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  10897390  2605535056
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  2605535056  10897787
+13
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  489069821  883194321
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  883194321  489070201
+14
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  4010551401  795768704
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  316636054  486358993
+15
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  244420298  3942880727
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  3699863864  4186665654
+16
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  1599038460  489235254
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  665972129  2578163093
+17
+REQUEST : TCP TUPLE: <src,dest,seq,ack> :172.24.23.243  34.193.77.105  1559500972  2210521729
+RESPNONSE: TCP TUPLE: <src,dest,seq,ack> :34.193.77.105  172.24.23.243  2210521729  1559501348
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+3.B
+
+The results for three files are as follows: I have detected protocols using the number of connections they setup. HTTP 1.1 sets max unto 6 and so second one is HTTP 1.1. HTTP 2.0 sets only 2 connections. HTTP 1.0 sets connection for each object that it fetches.
+
+For this part, I have 
+
+HTTP protocol: HTTP 1.0
+('Number of connections ', 17)
+('Total number of packets sent: ', 1636)
+('Total time taken:', 1.4696071147918701)
+('Raw bytes size:', 2256812)
+
+
+HTTP protocol: HTTP 1.1
+('Number of connections ', 6)
+('Total number of packets sent: ', 2545)
+('Total time taken:', 0.36583709716796875)
+('Raw bytes size:', 2293936)
+
+
+HTTP protocol: HTTP 2.0
+('Number of connections ', 2)
+('Total number of packets sent: ', 2114)
+('Total time taken:', 0.31290602684020996)
+('Raw bytes size:', 2288092)
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+3.C
+HTTP 2.0 performs fastest and sends least packets as expected because it makes least number of connections
+In the above results, the correct packet count and size of HTTP 1.0 is not present as some packets were invalidated because
+each packet cannot be of HTTP protocol. Also, the time spent is largest in HTTP 1.0.
+HTTP 1.1 comes in between HTTP 1.0 and HTTP 2.0 in performance. HTTP 2.0 is fastest and most efficient.
+HTTP 1.1 comes second and least performance is of HTTP 1.0
+
+
+
+-----------------------------------------------------------------------------------------
